@@ -13,15 +13,20 @@ const Chats = () => {
   useEffect(() => {
     const getChats = () => {
       const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
-        setChats(doc.data());
+        const data = doc.data();
+        if (data) {
+          // Ensure data is not undefined
+          setChats(data);
+        }
       });
-
+  
       return () => {
         unsub();
       };
     };
 
     currentUser.uid && getChats();
+
   }, [currentUser.uid]);
 
   const handleSelect = (u) => {
@@ -29,6 +34,7 @@ const Chats = () => {
   };
 
   return (
+
     <div className="chats">
       {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
         <div
