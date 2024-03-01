@@ -29,7 +29,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="login" element={<Login />} />
+          <Route path="login" element={<Login />} exact />
           <Route path="register" element={<Register />} />
         </Route>
       </Routes>
